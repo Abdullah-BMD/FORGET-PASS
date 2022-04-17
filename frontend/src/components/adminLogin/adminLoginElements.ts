@@ -86,3 +86,10 @@ export const ErrorMessage = styled.p`
   color: red;
   margin-bottom: 0px;
 `;
+
+
+export const InfoMessage = styled.p`
+  text-align: start;
+  color: green;
+  margin-bottom: 0px;
+`;

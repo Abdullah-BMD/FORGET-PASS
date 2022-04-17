@@ -25,7 +25,7 @@ const add_Admin = async({email,user_name,password}:{email : string , user_name:s
             password
              });
 
-        console.log('Responce :-' , responce);
+        
         if(!responce) throw "Admin not created"
         return responce;
 
