@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import "./App.css";
 import { useAppDispatch, useAppSelector } from "./store/store";
-import { AdminLogin  } from "./components/index";
+import { AdminLogin , SignUp , Activate  } from "./components/index";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 
@@ -25,8 +25,10 @@ function App() {
           <Route path="/admin-login" element={<AdminLogin />}/> 
           <Route path="/admin/update-credentials" element={<AdminPage />} />
           <Route path="/reset-password" element = {<ResetPasswordPage />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/activate/:id" element={<Activate />}/>
         </Routes>
-      </Router>
+      </Router>      
     </div>
   );
 }

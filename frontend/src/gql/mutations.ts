@@ -47,10 +47,19 @@ mutation SendCode($reciepent: String!, $body: String!, $subject: String!) {
 }
 `
 
+const ACTIVATE_ACCOUNT = gql`
+mutation ActivateAccount($activateAccountId: ID!) {
+  activateAccount(id: $activateAccountId) {
+    updated
+  }
+}
+`
+
 export {
+ ACTIVATE_ACCOUNT , 
  CREATE_ADMIN,
  UPDATE_USERNAME , 
  UPDATE_PASSWORD,
  NEW_PASSWORD , 
- SEND_MAIL
+ SEND_MAIL , 
 }

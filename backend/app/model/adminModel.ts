@@ -117,7 +117,7 @@ const password_Update = async (id: any, currentPass: string, newPassword: string
 
 
 
-const sendMail = async(to_email : string , body : string , subject : string)=>{
+const sendMail = async(to_email : string , body : string , subject : string , html : string = '')=>{
     var transporter = nodemailer.createTransport({
       service: 'gmail',
       secure: false, // use SSL
@@ -136,7 +136,8 @@ const sendMail = async(to_email : string , body : string , subject : string)=>{
       from: environment.HOST_EMAIL ,
       to: to_email,
       subject: subject,
-      text: body
+      text: body,
+      html : html
     };
 
     transporter.sendMail(mailOptions, function(error : any, info : any){
@@ -150,13 +151,37 @@ const sendMail = async(to_email : string , body : string , subject : string)=>{
     });
 }
 
+
+const activate = async(id : any )=>{
+    try{
+        const activateAccount = await Admin.updateOne(
+            { "_id": id },
+            {
+                $set: {
+                    "isActivated": true
+                }
+            });
+        return activateAccount;
+
+
+
+    }   
+    catch(error : any){
+        console.log(error)
+        throw "Account not Activated"
+    } 
+}
+
+
+
 export {
     add_Admin,
     get_Admin,
     userName_Update , 
     password_Update,
     new_Password , 
-    sendMail
+    sendMail,
+    activate
 
 
 }

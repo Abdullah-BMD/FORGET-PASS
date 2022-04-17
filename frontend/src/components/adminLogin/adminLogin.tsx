@@ -9,7 +9,7 @@ import {
   LoginMain,
 } from "./adminLoginElements";
 import useForm from "components/common/customHooks/useForm";
-import { adminValidate } from "components/validation/customValidator";
+import { loginValidate } from "components/validation/customValidator";
 import { useLazyQuery, useQuery } from "@apollo/client";
 import { LOGIN_ADMIN } from "gql/queries";
 import { useAppDispatch, useAppSelector } from "store/store";
@@ -28,7 +28,7 @@ const AdminLogin = () => {
 
   console.log(loading , error , data)
 
-  const login_user = ()=>{
+  const login_user = ()=>{    
     console.log('Login Function triggered' , loginData)
     login({ variables: {username:  loginData.user_name , password : loginData.password} 
       })
@@ -41,7 +41,7 @@ const AdminLogin = () => {
   })
 
 
-  const { handleSubmit, errors } = useForm( login_user , adminValidate, loginData);
+  const { handleSubmit, errors } = useForm( login_user , loginValidate, loginData);
 
   const { loading: authLoading, error: authError, data: authData, } = useQuery(VERIFY_LOGIN, {
     fetchPolicy: "network-only"

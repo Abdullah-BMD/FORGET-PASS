@@ -24,10 +24,14 @@ const adminLogin = async (obj: any) => {
                 throw ('Password is incorrect')
             }
             else {
+                if(data[0].isActivated){
                 const token = jwt.sign({ id: data[0]._id }, JSON.stringify(SHA256(environment.ADMIN_TOKEN).words), { expiresIn: '1d' });
                 return {
                     authenticated: true,
-                    token: token
+                    token: token}
+                }
+                else{
+                    throw ('Account Not Activated')
                 }
             }
         }

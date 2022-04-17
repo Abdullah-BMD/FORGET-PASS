@@ -7,6 +7,7 @@ export const adminSlice = createSlice({
         admin: {
             id: "",
             user_name : "" , 
+            email : "" , 
             password : "" , 
             updated: false , 
             curr_vals : {username : "" , password : ""}
@@ -25,6 +26,7 @@ export const adminSlice = createSlice({
                 admin: {
                     id: "",
                     user_name : "" , 
+                    email : "" , 
                     password : "",
                     updated: false , 
                     curr_vals : {username : "" , password : ""}

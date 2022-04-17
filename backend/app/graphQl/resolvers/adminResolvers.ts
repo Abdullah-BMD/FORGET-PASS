@@ -4,7 +4,8 @@ const {
 	userName_Update  , 
 	password_Update , 
     new_Password , 
-    sendMail
+    sendMail,
+    activate
 } = require("../../model/adminModel");
 
 const { emptyFieldValidation } = require("../../validators/customValidators")
@@ -95,7 +96,6 @@ const adminResolvers = {
                 if(res === 'success'){
                     let cipherNewPassword = CryptoJS.AES.encrypt(JSON.stringify(args.new_password), environment.ADMIN_TOKEN).toString();                    
                     const result = await new_Password(args.email , cipherNewPassword)
-                    console.log(result);
                     if (result.modifiedCount === 1) return {  updated: true }
                     else return {  updated: false }
 
@@ -104,9 +104,27 @@ const adminResolvers = {
         } , 
 
         sendCode : async(parent: any, args: any, { ctx }: any) => {
-            const result = await sendMail(args.reciepent , args.body , args.subject)
-            console.log('Resolver :' , result);
+            console.log('----->' , args.html)
+            if(args.html!=undefined){
+                const result = await sendMail(args.reciepent , args.body , args.subject ,args.html)
+            }
+            else{
+                const result = await sendMail(args.reciepent , args.body , args.subject) }
             return {  sent: true };
+        },
+
+        activateAccount : async(parent: any, args: any, { ctx }: any) => {
+            // let dummymail = CryptoJS.AES.encrypt(JSON.stringify(args.email), environment.ADMIN_TOKEN).toString();                    
+            // console.log('Dummy mail : ' , dummymail)
+
+            // var bytes = CryptoJS.AES.decrypt(args.id, environment.ADMIN_TOKEN );
+            // var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+            // console.log('Descrypted mail : ' , decryptedData.toString())
+            const result=  await activate(args.id)
+            console.log(result);
+            if (result.modifiedCount === 1) return {  updated: true }
+            else return {  updated: false }
+
         }
 
 

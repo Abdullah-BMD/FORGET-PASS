@@ -12,6 +12,7 @@ let adminSchema = mongoose.Schema(
         user_name: {
             type: String,
             required: true,
+            unique : true
         },
         password: {
             type: String,
@@ -29,6 +30,6 @@ let adminSchema = mongoose.Schema(
     }
 );
 
-const Admin = mongoose.model("ForgetPasswordAdmin", adminSchema);
+const Admin = mongoose.model("ForgetPassAdmin", adminSchema);
 export { }
 module.exports = { Admin }

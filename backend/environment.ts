@@ -6,8 +6,10 @@ const database_name = "myFirstDatabase";
 const environment = {    
     MONGOOSE_URL  : `mongodb+srv://${usrname}:${password}@${cluster_name}.fquus.mongodb.net/${database_name}?retryWrites=true&w=majority` , 
     ADMIN_TOKEN: "adminsecerest@key2login_secure" , 
-    HOST_EMAIL : "abdullahquddusbmd@gmail.com",
-    HOST_EMAIL_PASSWORD : "Hareem123"
+    // Enter your email below
+    HOST_EMAIL : "Your email here",
+    // Enter your password below
+    HOST_EMAIL_PASSWORD : "email password here"
 
 }
 

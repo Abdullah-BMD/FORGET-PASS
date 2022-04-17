@@ -51,7 +51,8 @@ type Mutation{
     updateUsername(id : ID! ,  username: String!): Updated,
     updatePassword(id : ID! , current_password: String!, new_password: String! ): Updated , 
     newPassword(email : String! , new_password : String!) : Updated , 
-    sendCode(reciepent : String! , body  : String! , subject : String!) : Success
+    sendCode(reciepent : String! , body  : String! , subject : String! , html : String) : Success , 
+    activateAccount(id : ID!) : Updated,
 }
 `;
 
