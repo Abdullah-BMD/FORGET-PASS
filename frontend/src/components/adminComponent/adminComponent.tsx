@@ -82,6 +82,13 @@ const Admin_test: React.FC<Props> = ({  }) => {
   }
 
 
+  const statusBodyTemplate = (rowData) => {
+      let status_message ;
+      if (rowData.isActivated === false){ status_message = 'Not Activated' }
+      else{ status_message = 'Activated'}
+      return <span>{status_message}</span>;
+  }
+
 
  
 
@@ -117,6 +124,7 @@ const Admin_test: React.FC<Props> = ({  }) => {
               <Column field="email" header="Email" sortable style={{ minWidth: '16rem' }}></Column>
               <Column field="user_name" header="User Name" sortable style={{ minWidth: '16rem' }}></Column>
               <Column field="password" header="Password" sortable style={{ minWidth: '16rem' }}></Column>
+              <Column field="isActivated" header="Is_minted" body={statusBodyTemplate} sortable style={{ minWidth: '12rem' }}></Column>
             </DataTable>
 
 

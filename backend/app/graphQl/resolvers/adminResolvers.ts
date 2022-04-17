@@ -104,8 +104,7 @@ const adminResolvers = {
         } , 
 
         sendCode : async(parent: any, args: any, { ctx }: any) => {
-            const bodyMail = `Verification Code is ${args.code} \n The code is Valid for 5 minutes`
-            const result = await sendMail(args.reciepent , bodyMail)
+            const result = await sendMail(args.reciepent , args.body , args.subject)
             console.log('Resolver :' , result);
             return {  sent: true };
         }

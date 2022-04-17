@@ -18,6 +18,7 @@ query GetAdmins {
     email
     user_name
     password
+    isActivated
   }
 }
 `

@@ -117,7 +117,7 @@ const password_Update = async (id: any, currentPass: string, newPassword: string
 
 
 
-const sendMail = async(to_email : string , body : string)=>{
+const sendMail = async(to_email : string , body : string , subject : string)=>{
     var transporter = nodemailer.createTransport({
       service: 'gmail',
       secure: false, // use SSL
@@ -135,7 +135,7 @@ const sendMail = async(to_email : string , body : string)=>{
     var mailOptions = {
       from: environment.HOST_EMAIL ,
       to: to_email,
-      subject: 'Verification CODE For Reset Password',
+      subject: subject,
       text: body
     };
 

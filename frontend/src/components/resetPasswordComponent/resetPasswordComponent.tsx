@@ -62,7 +62,8 @@ const ResetPassword = () => {
       console.log('code-->' , genCode)
       createmail({
         variables: {
-          reciepent: resetPass.email , code :genCode
+          reciepent: resetPass.email , body : `Verification Code is ${genCode} \n The code is Valid for 5 minutes` , 
+          subject :  'Verification CODE For Reset Password'
         }
       }).then((result) => {
         if (result.data) {

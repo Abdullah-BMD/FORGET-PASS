@@ -40,8 +40,8 @@ mutation NewPassword($email: String!, $newPassword: String!) {
 `
 
 const SEND_MAIL = gql`
-mutation SendCode($reciepent: String!, $code: String!) {
-  sendCode(reciepent: $reciepent, code: $code) {
+mutation SendCode($reciepent: String!, $body: String!, $subject: String!) {
+  sendCode(reciepent: $reciepent, body: $body, subject: $subject) {
     sent
   }
 }

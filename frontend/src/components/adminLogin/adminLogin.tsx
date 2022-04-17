@@ -49,7 +49,6 @@ const AdminLogin = () => {
 
   useEffect(() => {
     // authData?.verify_login.access && navigate("/");
-    // ---- 
   }, [authData]);
 
   return (

@@ -13,6 +13,7 @@ type Admin{
     email : String , 
     user_name : String , 
     password : String
+    isActivated  : Boolean,
 }
 
 
@@ -50,7 +51,7 @@ type Mutation{
     updateUsername(id : ID! ,  username: String!): Updated,
     updatePassword(id : ID! , current_password: String!, new_password: String! ): Updated , 
     newPassword(email : String! , new_password : String!) : Updated , 
-    sendCode(reciepent : String! , code  : String!) : Success
+    sendCode(reciepent : String! , body  : String! , subject : String!) : Success
 }
 `;
 

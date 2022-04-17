@@ -17,6 +17,11 @@ let adminSchema = mongoose.Schema(
             type: String,
             required: true,
             length: 300,
+        } , 
+        isActivated : {
+            type : Boolean,
+            required:  true,
+            default : false,
         }
     },
     {
