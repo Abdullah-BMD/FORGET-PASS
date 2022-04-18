@@ -4,6 +4,7 @@ import { Column } from 'primereact/column';
 import { Toast } from 'primereact/toast';
 import { Button } from 'primereact/button';
 import { Rating } from 'primereact/rating';
+import { Toolbar } from 'primereact/toolbar';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { RadioButton, RadioButtonChangeParams } from 'primereact/radiobutton';
 import { InputNumber, InputNumberChangeParams } from 'primereact/inputnumber';
@@ -63,22 +64,27 @@ const Admin_test: React.FC<Props> = ({  }) => {
   const { admin } = useAppSelector((state) => state.admin)
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const dt = useRef(null);
 
 
   const { loading, error, data, refetch } = useQuery(GET_ADMINS);
   console.log(data)
 
+  const exportCSV = ()=>{
+    dt.current.exportCSV();
+  }
 
-  const callEdit = (data: Body) => {
-    dispatch(setAdmin({
-      ...admin,
-      id: data.id,
-      user_name : data.user_name , 
-      password : data.password,
-      updated: true , 
-      curr_vals : {username : data.user_name , password : data.password}
-    }))
-    setProductDialog(true);
+  const exportJSON = (  )=>{
+    let exportName = 'DOWNLOAD'
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data?.getAdmins));
+    var downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href",     dataStr);
+    downloadAnchorNode.setAttribute("download", exportName + ".json");
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+
+
   }
 
 
@@ -90,7 +96,23 @@ const Admin_test: React.FC<Props> = ({  }) => {
   }
 
 
- 
+   const rightToolbarTemplate = () => {
+      return (
+          <React.Fragment>
+              <Button label="Export CSV" icon="pi pi-upload" className="p-button-help" onClick={exportCSV} />
+          </React.Fragment>
+      )
+   }
+
+
+    const leftToolbarTemplate = () => {
+        return (
+            <React.Fragment>
+                <Button label="Export JSON" icon="pi pi-upload" className="p-button-success mr-2" onClick={exportJSON} />
+            </React.Fragment>
+        )
+    }
+
 
 
   const header = (
@@ -115,17 +137,20 @@ const Admin_test: React.FC<Props> = ({  }) => {
           <div className="datatable-crud-demo surface-card p-4 border-round shadow-2">
             <Toast ref={toast} />
             <div className="text-3xl text-800 font-bold mb-4">Admin CRUD Table</div>
-            <DataTable value={data?.getAdmins}
-              dataKey="id" paginator rows={10} rowsPerPageOptions={[5, 10, 25]}
-              paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-              currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products"
-              globalFilter={globalFilter} header={header} responsiveLayout="scroll">
-              <Column field="id" header="id" sortable style={{ minWidth: '12rem' }}></Column>
-              <Column field="email" header="Email" sortable style={{ minWidth: '16rem' }}></Column>
-              <Column field="user_name" header="User Name" sortable style={{ minWidth: '16rem' }}></Column>
-              <Column field="password" header="Password" sortable style={{ minWidth: '16rem' }}></Column>
-              <Column field="isActivated" header="Is_minted" body={statusBodyTemplate} sortable style={{ minWidth: '12rem' }}></Column>
-            </DataTable>
+            <div className="card">
+              <Toolbar className="mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
+              <DataTable ref={dt} value={data?.getAdmins}
+                dataKey="id" paginator rows={10} rowsPerPageOptions={[5, 10, 25]}
+                paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products"
+                globalFilter={globalFilter} header={header} responsiveLayout="scroll">
+                <Column field="id" header="id" sortable style={{ minWidth: '12rem' }}></Column>
+                <Column field="email" header="Email" sortable style={{ minWidth: '16rem' }}></Column>
+                <Column field="user_name" header="User Name" sortable style={{ minWidth: '16rem' }}></Column>
+                <Column field="password" header="Password" sortable style={{ minWidth: '16rem' }}></Column>
+                <Column field="isActivated" header="Is_minted" body={statusBodyTemplate} sortable style={{ minWidth: '12rem' }}></Column>
+              </DataTable>
+             </div>
 
 
 
